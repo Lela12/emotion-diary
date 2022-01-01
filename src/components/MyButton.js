@@ -3,6 +3,7 @@ const MyButton = ({ text, type, onClick }) => {
   const btnType = ["positive", "negative"].includes(type) ? type : "default";
   return (
     <button
+      // 문자열로 전달하기 위해서
       className={["MyButton", `MyButton_${btnType}`].join(" ")}
       onClick={onClick}
     >
