@@ -5,6 +5,7 @@ import { DiaryDispatchContext } from "./../App.js";
 import MyHeader from "./MyHeader";
 import MyButton from "./MyButton";
 import EmotionItem from "./EmotionItem";
+import { useEffect } from "react/cjs/react.development";
 
 const emotionList = [
   {
@@ -38,13 +39,13 @@ const getStringDate = (date) => {
   return date.toISOString().slice(0, 10); //2022-01-02
 };
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ isEdit, originData }) => {
   const contentRef = useRef();
   const [content, setContent] = useState("");
   const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date())); //오늘의 날짜를 input의 초기값으로
 
-  const { onCreate } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit } = useContext(DiaryDispatchContext);
   const handleClickEmote = (emotion) => {
     setEmotion(emotion);
   };
@@ -55,14 +56,35 @@ const DiaryEditor = () => {
       contentRef.current.focus();
       return;
     }
+
+    if (
+      window.confirm(
+        isEdit ? "일기를 수정하시겠습니까?" : "새로운 일기를 작성하시겠습니까?"
+      )
+    ) {
+      if (!isEdit) {
+        onCreate(date, content, emotion);
+      } else {
+        onEdit(originData.id, date, content, emotion);
+      }
+    }
+
     onCreate(date, content, emotion);
     navigate("/", { replace: true });
   };
 
+  useEffect(() => {
+    if (isEdit) {
+      //EDIT페이지에서만 로직이 동작
+      setDate(getStringDate(new Date(parseInt(originData.date))));
+      setEmotion(originData.emotion);
+      setContent(originData.content);
+    }
+  }, [isEdit, originData]);
   return (
     <div className="DiaryEditor">
       <MyHeader
-        headText={"새 일기쓰기"}
+        headText={isEdit ? "일기 수정하기" : "새 일기쓰기"}
         leftChild={
           <MyButton text={"< 뒤로가기"} onClick={() => navigate(-1)} />
         }

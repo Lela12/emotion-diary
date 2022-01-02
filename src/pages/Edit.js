@@ -1,39 +1,37 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { DiaryStateContext } from "../App";
+import DiaryEditor from "../components/DiaryEditor";
+import DiaryList from "../components/DiaryList";
 
 const Edit = () => {
+  const [originData, setOriginData] = useState();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { id } = useParams();
 
-  const id = searchParams.get("id");
-  console.log("id: ", id);
+  const diaryList = useContext(DiaryStateContext);
 
-  const mode = searchParams.get("mode");
-  console.log("mode: ", mode);
+  useEffect(() => {
+    if (diaryList.length >= 1) {
+      //일기데이터가 하나라도 있을때에만 꺼내옴
+      const targetDiary = diaryList.find(
+        (it) => parseInt(it.id) === parseInt(id)
+      );
+      console.log(targetDiary);
+
+      if (targetDiary) {
+        setOriginData(targetDiary);
+      } else {
+        navigate("/", { replace: true }); //내용이 없는 페이지로 다시 되돌아가지 못하게
+      }
+    }
+  }, [id, diaryList]); //id,diaryList가 다를 경우에만 꺼내옴
 
   return (
     <div>
-      <h1>Edit</h1>
-      <p>이곳은 일기 수정 페이지 입니다.</p>
-      <button onClick={() => setSearchParams({ who: "winterhood" })}>
-        QS 바꾸기
-      </button>
-
-      <button
-        onClick={() => {
-          navigate("/home");
-        }}
-      >
-        HOME으로 가기
-      </button>
-      <button
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        뒤로가기
-      </button>
+      {originData && <DiaryEditor isEdit={true} originData={originData} />}
     </div>
-  );
+  ); //originData가 있으면, DiaryList랜더링
 };
 
 export default Edit;

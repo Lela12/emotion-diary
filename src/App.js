@@ -123,7 +123,7 @@ function App() {
               {/* path가 index를 가리키고 있으면, home컴포넌트를 랜더해라 */}
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>
