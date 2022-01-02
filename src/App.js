@@ -15,10 +15,10 @@ const reducer = (state, action) => {
       return action.data;
     }
     case "CREATE": {
-      // const newItem = {
-      //   ...action.data,
-      // };
-      newState = [action.data, ...state];
+      const newItem = {
+        ...action.data,
+      };
+      newState = [newItem, ...state];
       break;
     }
     //해당아이디 값을 제외한 값들은 그 newState로 반환하게됨
@@ -77,10 +77,8 @@ const dummyData = [
 
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
-  //dummyData date값으로
-  console.log(new Date().getTime());
 
-  const dataId = useRef(0);
+  const dataId = useRef(6); //0으로 할 경우 id값이 겹치므로 6으로 초기값
   //CREATE
   //새로운 일기아이템을 객체로 만들어서 data라는 이름으로 전달
   const onCreate = (date, content, emotion) => {

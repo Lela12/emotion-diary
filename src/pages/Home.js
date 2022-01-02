@@ -25,7 +25,10 @@ const Home = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        23,
+        59,
+        59 //시,분,초까지 영향을 미치므로 넣어줘야함
       ).getTime();
 
       setData(
@@ -33,10 +36,6 @@ const Home = () => {
       );
     }
   }, [diaryList, curDate]); //삭제, 추가, 수정 되었을 때도 변경해주어야 하므로
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const increaseMonth = () => {
     setCurDate(
