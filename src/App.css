@@ -288,3 +288,83 @@ header button {
 .EmotionItem_on_5 .Emotion_descript {
   background-color: rgb(233, 217, 243);
 }
+
+/* Diary */
+.DiaryPage {
+}
+
+.DiaryPage section {
+  width: 100%;
+  margin-bottom: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.DiaryPage h4 {
+  font-size: 17px;
+  font-weight: bold;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.DiaryPage .diary_img_wrapper {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.diary_img_wrapper img {
+  padding-bottom: 20px;
+  width: 230px;
+  height: 230px;
+}
+
+.diary_img_wrapper_1 .emotion_desript {
+  background-color: rgb(243, 222, 236);
+}
+
+.diary_img_wrapper_2 .emotion_desript {
+  background-color: rgb(245, 237, 195);
+}
+
+.diary_img_wrapper_3 .emotion_desript {
+  background-color: rgb(220, 248, 214);
+}
+
+.diary_img_wrapper_4 .emotion_desript {
+  background-color: rgb(218, 236, 247);
+}
+
+.diary_img_wrapper_5 .emotion_desript {
+  background-color: rgb(233, 217, 243);
+}
+
+.DiaryPage .emotion_desript {
+  font-size: 15px;
+  width: 150px;
+  padding-bottom: 5px;
+  color: black;
+}
+
+.DiaryPage .diary_content_wrapper {
+  width: 100%;
+  background-color: #ececec;
+  border-radius: 5px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  /* 글이 글어질 경우 줄바꿈 하게끔 */
+}
+
+.DiaryPage .diary_content_wrapper p {
+  padding: 20px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2.5;
+}
