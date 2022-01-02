@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
+import { useEffect } from "react/cjs/react.development";
 
 const reducer = (state, action) => {
   let newState = [];
@@ -36,49 +37,31 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: "오늘의일기 1번",
-    date: 1641046708815,
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: "오늘의일기 2번",
-    date: 1641046708816,
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: "오늘의일기 3번",
-    date: 1641046708817,
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: "오늘의일기 4번",
-    date: 1641046708818,
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: "오늘의일기 5번",
-    date: 1641046708819,
-  },
-];
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, []);
 
-  const dataId = useRef(6); //0으로 할 경우 id값이 겹치므로 6으로 초기값
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+    if (localData) {
+      //내림차순 정렬
+      const diaryList = JSON.parse(localData).sort(
+        (a, b) => parseInt(b.id) - parseInt(a.id)
+      );
+      dataId.current = parseInt(diaryList[0].id) + 1; //0번째 요소아이디에 +1
+
+      dispatch({ type: "INIT", data: diaryList }); //초기값으로 설정
+    }
+  }, []);
+
+  const dataId = useRef(0); //0으로 할 경우 id값이 겹치므로 6으로 초기값
   //CREATE
   //새로운 일기아이템을 객체로 만들어서 data라는 이름으로 전달
   const onCreate = (date, content, emotion) => {
