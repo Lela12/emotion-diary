@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
-import { useEffect } from "react/cjs/react.development";
 
 const reducer = (state, action) => {
   let newState = [];
@@ -55,9 +54,11 @@ function App() {
       const diaryList = JSON.parse(localData).sort(
         (a, b) => parseInt(b.id) - parseInt(a.id)
       );
-      dataId.current = parseInt(diaryList[0].id) + 1; //0번째 요소아이디에 +1
 
-      dispatch({ type: "INIT", data: diaryList }); //초기값으로 설정
+      if (diaryList.length >= 1) {
+        dataId.current = parseInt(diaryList[0].id) + 1; //0번째 요소아이디에 +1
+        dispatch({ type: "INIT", data: diaryList }); //초기값으로 설정
+      }
     }
   }, []);
 

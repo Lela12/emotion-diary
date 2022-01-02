@@ -1,4 +1,4 @@
-import { useState } from "react/cjs/react.development";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyButton from "./MyButton";
 import DiaryItem from "./DiaryItem";
@@ -16,7 +16,9 @@ const filterOptionList = [
 //value:어떤 것을 선택할 것인지, onChange select가 변화했을때 바꿀 함수,
 // optionList select태그안에 들어갈 옵션
 //sortType을 변경시킬  select역할
-const ControlMenu = ({ value, onChange, optionList }) => {
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
+  //React.memo 강화된 컴포넌트를 돌려주는 고차 컴포넌트
+  //값이 바뀌지 않으면 랜더링 되지 않게 해줌
   return (
     <select
       className="ControlMenu"
@@ -35,7 +37,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
       )}
     </select>
   );
-};
+});
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();

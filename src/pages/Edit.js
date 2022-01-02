@@ -12,6 +12,13 @@ const Edit = () => {
   const diaryList = useContext(DiaryStateContext);
 
   useEffect(() => {
+    //title이란 태그를 갖는 모든 element를 가져와라(배열)
+    //페이지마다 다른 타이틀을 가지게 할 수 있음
+    const titleElement = document.getElementsByTagName("title")[0];
+    titleElement.innerHTML = `이모션 다이어리 - ${id}번 일기 수정`;
+  }, []);
+
+  useEffect(() => {
     if (diaryList.length >= 1) {
       //일기데이터가 하나라도 있을때에만 꺼내옴
       const targetDiary = diaryList.find(
