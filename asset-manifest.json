@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Lela12/emotion-diary/static/css/main.a8116d20.css",
+    "main.js": "/Lela12/emotion-diary/static/js/main.7eb3703d.js",
+    "index.html": "/Lela12/emotion-diary/index.html",
+    "main.a8116d20.css.map": "/Lela12/emotion-diary/static/css/main.a8116d20.css.map",
+    "main.7eb3703d.js.map": "/Lela12/emotion-diary/static/js/main.7eb3703d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8116d20.css",
+    "static/js/main.7eb3703d.js"
+  ]
+}
